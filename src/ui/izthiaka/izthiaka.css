@@ -1,0 +1,45 @@
+.instagram-btn {
+    background-color: #405de6;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.instagram-btn:hover {
+    background-color: #3f50b5;
+}
+
+.linkedin-btn {
+    background-color: #0077b5;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.linkedin-btn:hover {
+    background-color: #005f90;
+}
+
+.github-btn {
+    background-color: #24292e;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.github-btn:hover {
+    background-color: #181c20;
+}
+
+.izthiaka {
+    cursor: pointer;
+}
