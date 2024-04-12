@@ -6,6 +6,7 @@ const TaskList: React.FC = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [inputValue, setInputValue] = useState<string>("");
   const [searchTerm, setSearchTerm] = useState<string>("");
+  const [editingTaskId, setEditingTaskId] = useState<number | null>(null);
 
   const handleAddTask = () => {
     if (inputValue.trim() !== "") {
@@ -45,6 +46,20 @@ const TaskList: React.FC = () => {
     if (e.key === "Enter") {
       handleAddTask();
     }
+  };
+
+  const handleEditTask = (taskId: number) => {
+    setEditingTaskId(taskId);
+  };
+
+  const handleUpdateTask = (taskId: number, updatedContent: string) => {
+    setTasks((prevTasks) =>
+      prevTasks.map((task) =>
+        task.id === taskId ? { ...task, content: updatedContent } : task,
+      ),
+    );
+    setEditingTaskId(null);
+    setInputValue("");
   };
 
   return (
@@ -88,22 +103,41 @@ const TaskList: React.FC = () => {
             key={task.id}
             className="list-group-item d-flex justify-content-between align-items-center"
           >
-            <input
-              type="checkbox"
-              checked={task.completed}
-              onChange={() => handleToggleComplete(task.id)}
-            />
-            <span
-              style={{
-                textDecoration: task.completed ? "line-through" : "none",
-              }}
-            >
-              {task.content}
-            </span>
-            <i
-              onClick={() => handleRemoveTask(task.id)}
-              className="far fa-trash-alt"
-            ></i>
+            {editingTaskId === task.id ? (
+              <input
+                type="text"
+                value={inputValue}
+                onChange={(e) => setInputValue(e.target.value)}
+                onBlur={() => handleUpdateTask(task.id, inputValue)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    handleUpdateTask(task.id, inputValue);
+                  }
+                }}
+                autoFocus
+              />
+            ) : (
+              <>
+                <input
+                  type="checkbox"
+                  checked={task.completed}
+                  onChange={() => handleToggleComplete(task.id)}
+                />
+                <span
+                  className="left"
+                  onClick={() => handleEditTask(task.id)}
+                  style={{
+                    textDecoration: task.completed ? "line-through" : "none",
+                  }}
+                >
+                  {task.content}
+                </span>
+                <i
+                  onClick={() => handleRemoveTask(task.id)}
+                  className="far fa-trash-alt"
+                ></i>
+              </>
+            )}
           </li>
         ))}
       </ul>
