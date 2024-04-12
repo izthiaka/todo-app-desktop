@@ -1,0 +1,44 @@
+body {
+    background: #11a6ee;
+    /* background-image: url("./izthiaka.png"); */
+    font-family: "Josefin Sans", sans-serif;
+    font-size: 23px;
+}
+
+.container {
+    max-width: 500px;
+}
+
+input[type="text"],
+input[type="text"]:focus {
+    color: #fff;
+    border: none;
+    background: rgba(0, 0, 0, 0.2);
+    max-width: 500px;
+}
+
+.todos li {
+    background: #40b8f2;
+    color: #fff;
+}
+
+.delete {
+    cursor: pointer;
+}
+
+.filtered {
+    display: none !important;
+}
+
+.btn:hover {
+    background: #423a6f;
+    color: #fff;
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+    border-radius: 13px 13px;
+    transition: 0.8s;
+}
+
+i:hover {
+    color: #423a6f;
+}
