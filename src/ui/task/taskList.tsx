@@ -5,6 +5,7 @@ import "./task";
 const TaskList: React.FC = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [inputValue, setInputValue] = useState<string>("");
+  const [searchTerm, setSearchTerm] = useState<string>("");
 
   const handleAddTask = () => {
     if (inputValue.trim() !== "") {
@@ -32,6 +33,20 @@ const TaskList: React.FC = () => {
     );
   };
 
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(e.target.value);
+  };
+
+  const filteredTasks = tasks.filter((task) =>
+    task.content.toLowerCase().includes(searchTerm.toLowerCase()),
+  );
+
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      handleAddTask();
+    }
+  };
+
   return (
     <div className="container">
       <h2 className="text-center mb-4 text-light">Gestionnaire des Tâches</h2>
@@ -42,6 +57,7 @@ const TaskList: React.FC = () => {
             type="text"
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
+            onKeyDown={handleKeyPress}
             placeholder="Ajouter une tâche..."
             className="form-control m-auto"
           />
@@ -60,12 +76,14 @@ const TaskList: React.FC = () => {
             type="text"
             name="search"
             placeholder="recherche"
+            value={searchTerm}
+            onChange={handleSearch}
           />
         </form>
       </header>
 
       <ul className="list-group todos mx-auto text-light delete">
-        {tasks.map((task) => (
+        {filteredTasks.map((task) => (
           <li
             key={task.id}
             className="list-group-item d-flex justify-content-between align-items-center"
@@ -76,7 +94,6 @@ const TaskList: React.FC = () => {
               onChange={() => handleToggleComplete(task.id)}
             />
             <span
-              className="left"
               style={{
                 textDecoration: task.completed ? "line-through" : "none",
               }}

@@ -1,10 +1,3 @@
-body {
-    background: #11a6ee;
-    /* background-image: url("./izthiaka.png"); */
-    font-family: "Josefin Sans", sans-serif;
-    font-size: 23px;
-}
-
 .container {
     max-width: 500px;
 }
